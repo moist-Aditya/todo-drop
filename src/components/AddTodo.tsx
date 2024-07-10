@@ -33,6 +33,12 @@ const AddTodo = ({ categoryId }: { categoryId: string }) => {
             required
             placeholder="Add new task..."
             className="w-full rounded border border-violet-400 bg-violet-400/20 p-3 text-sm placeholder-violet-300 focus:outline-0"
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && !e.shiftKey && "form" in e.target) {
+                e.preventDefault()
+                ;(e.target.form as HTMLFormElement).requestSubmit()
+              }
+            }}
           />
           <div className="flex gap-3 text-xs items-center justify-end">
             <button

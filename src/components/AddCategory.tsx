@@ -27,6 +27,12 @@ const AddCategory = () => {
             name="categoryName"
             placeholder="Add new category..."
             className="rounded border border-violet-400 bg-violet-400/20 p-2 text-sm placeholder-violet-300 focus:outline-0 mb-1.5"
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && "form" in e.target) {
+                e.preventDefault()
+                ;(e.target.form as HTMLFormElement).requestSubmit()
+              }
+            }}
           />
           <div className="flex gap-4 justify-end items-center text-xs">
             <button onClick={() => setIsAdding(false)}>Close</button>
