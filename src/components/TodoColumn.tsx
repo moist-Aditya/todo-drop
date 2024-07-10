@@ -1,7 +1,7 @@
 "use client"
 
 import { Category, Todo } from "@prisma/client"
-import { useState } from "react"
+import { DragEvent, useState } from "react"
 import TodoCard from "./TodoCard"
 import DropIndicator from "./DropIndicator"
 import AddTodo from "./AddTodo"
@@ -16,8 +16,11 @@ const TodoColumn = ({
   cards: Todo[]
 }) => {
   const filteredCards = cards.filter((todo) => todo.categoryId === category.id)
-
   const [active, setActive] = useState(false)
+
+  const handleDragStart = (e: DragEvent, cardId: string) => {
+    e.dataTransfer.setData("cardId", cardId)
+  }
 
   return (
     <div className="w-56 shrink-0">
@@ -32,7 +35,11 @@ const TodoColumn = ({
         }`}
       >
         {filteredCards.map((todo) => (
-          <TodoCard todo={todo} key={todo.id} />
+          <TodoCard
+            todo={todo}
+            key={todo.id}
+            handleDragStart={handleDragStart}
+          />
         ))}
 
         <DropIndicator categoryId={category.id} />

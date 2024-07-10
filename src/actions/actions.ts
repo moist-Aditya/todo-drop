@@ -45,3 +45,17 @@ export const addCategory = async (formData: FormData) => {
 
   revalidatePath("/")
 }
+
+export const deleteTask = async (taskId: string) => {
+  try {
+    await prisma.todo.delete({
+      where: {
+        id: taskId,
+      },
+    })
+  } catch (error: any) {
+    return { error: error?.message }
+  }
+
+  revalidatePath("/")
+}
