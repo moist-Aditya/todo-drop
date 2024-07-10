@@ -5,6 +5,8 @@ import { DragEvent, useState } from "react"
 import TodoCard from "./TodoCard"
 import DropIndicator from "./DropIndicator"
 import AddTodo from "./AddTodo"
+import { moveTask } from "@/actions/actions"
+import { toast } from "sonner"
 
 const TodoColumn = ({
   category,
@@ -22,8 +24,29 @@ const TodoColumn = ({
     e.dataTransfer.setData("cardId", cardId)
   }
 
+  const handleDragOver = (e: DragEvent) => {
+    e.preventDefault()
+    setActive(true)
+  }
+  const handleDragLeave = (e: DragEvent) => {
+    setActive(false)
+  }
+  const handleDragEnd = async (e: DragEvent) => {
+    const cardId = e.dataTransfer.getData("cardId")
+
+    const result = await moveTask(cardId, category.id)
+    if (result?.error) toast.error(result.error)
+
+    setActive(false)
+  }
+
   return (
-    <div className="w-56 shrink-0">
+    <div
+      className="w-56 shrink-0"
+      onDragOver={handleDragOver}
+      onDragLeave={handleDragLeave}
+      onDrop={handleDragEnd}
+    >
       <div className="flex justify-between items-center mb-3">
         <h3 className={`font-semibold ${headingColor}`}>{category.name}</h3>
         <span className="text-sm text-zinc-500">{filteredCards.length}</span>

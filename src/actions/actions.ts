@@ -59,3 +59,20 @@ export const deleteTask = async (taskId: string) => {
 
   revalidatePath("/")
 }
+
+export const moveTask = async (taskId: string, categoryId: string) => {
+  try {
+    await prisma.todo.update({
+      where: {
+        id: taskId,
+      },
+      data: {
+        categoryId,
+      },
+    })
+  } catch (error: any) {
+    return { error: error?.message }
+  }
+
+  revalidatePath("/")
+}

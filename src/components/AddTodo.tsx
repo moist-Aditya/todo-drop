@@ -1,9 +1,10 @@
 "use client"
 
 import { addTask } from "@/actions/actions"
-import { useActionState, useState } from "react"
+import { useState } from "react"
 import { FiPlus } from "react-icons/fi"
 import { toast } from "sonner"
+import { motion } from "framer-motion"
 
 const AddTodo = ({ categoryId }: { categoryId: string }) => {
   const [isAdding, setIsAdding] = useState(false)
@@ -14,7 +15,8 @@ const AddTodo = ({ categoryId }: { categoryId: string }) => {
   return (
     <>
       {isAdding ? (
-        <form
+        <motion.form
+          layout
           action={async (formData) => {
             const result = await addTaskWithCategoryId(formData)
             if (result?.error) {
@@ -47,15 +49,16 @@ const AddTodo = ({ categoryId }: { categoryId: string }) => {
               <FiPlus />
             </button>
           </div>
-        </form>
+        </motion.form>
       ) : (
-        <button
+        <motion.button
+          layout
           onClick={() => setIsAdding(true)}
           className="flex justify-end gap-2 text-sm text-zinc-500 items-center w-full py-2 px-3"
         >
           <span>Add Task</span>
           <FiPlus />
-        </button>
+        </motion.button>
       )}
     </>
   )
