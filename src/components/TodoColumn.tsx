@@ -32,7 +32,7 @@ const TodoColumn = ({
         }`}
       >
         {filteredCards.map((todo) => (
-          <TodoCard todo={todo} />
+          <TodoCard todo={todo} key={todo.id} />
         ))}
 
         <DropIndicator categoryId={category.id} />

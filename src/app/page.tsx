@@ -1,3 +1,4 @@
+import AddCategory from "@/components/AddCategory"
 import TodoList from "@/components/TodoList"
 
 export default function Home() {

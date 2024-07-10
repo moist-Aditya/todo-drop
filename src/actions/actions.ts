@@ -21,8 +21,26 @@ export const addTask = async (categoryId: string, formData: FormData) => {
         },
       },
     })
-  } catch (e: any) {
-    return { error: e?.message }
+  } catch (error: any) {
+    return { error: error?.message }
+  }
+
+  revalidatePath("/")
+}
+
+export const addCategory = async (formData: FormData) => {
+  const data = {
+    name: formData.get("categoryName") as string,
+  }
+
+  try {
+    await prisma.category.create({
+      data: {
+        name: data.name,
+      },
+    })
+  } catch (error: any) {
+    return { error: error?.message }
   }
 
   revalidatePath("/")
