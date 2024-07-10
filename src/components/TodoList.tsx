@@ -4,8 +4,10 @@ import DeleteTodoDroppable from "./DeleteTodoDroppable"
 import TodoColumn from "./TodoColumn"
 
 const TodoList = async () => {
-  const categories = await prisma.category.findMany()
-  const tasks = await prisma.todo.findMany()
+  const [categories, tasks] = await Promise.all([
+    prisma.category.findMany(),
+    prisma.todo.findMany(),
+  ])
 
   return (
     <div className="flex gap-3 w-full h-full flex-1 p-12 overflow-scroll relative">
