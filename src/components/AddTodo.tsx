@@ -1,15 +1,15 @@
 "use client"
 
 import { addTask } from "@/actions/actions"
-import { useState } from "react"
+import { createRef, useState } from "react"
 import { FiPlus } from "react-icons/fi"
 import { toast } from "sonner"
 import { motion } from "framer-motion"
 
 const AddTodo = ({ categoryId }: { categoryId: string }) => {
   const [isAdding, setIsAdding] = useState(false)
+  const inputRef = createRef<HTMLTextAreaElement>()
 
-  //   const [error, action, isPending] = useActionState(addTask, null)
   const addTaskWithCategoryId = addTask.bind(null, categoryId)
 
   return (
@@ -22,7 +22,7 @@ const AddTodo = ({ categoryId }: { categoryId: string }) => {
             if (result?.error) {
               toast.error(result.error)
             } else {
-              setIsAdding(false)
+              inputRef.current!.value = ""
               toast.success("Task Added")
             }
           }}
@@ -30,6 +30,7 @@ const AddTodo = ({ categoryId }: { categoryId: string }) => {
           <textarea
             name="content"
             autoFocus
+            ref={inputRef}
             required
             placeholder="Add new task..."
             className="w-full rounded border border-violet-400 bg-violet-400/20 p-3 text-sm placeholder-violet-300 focus:outline-0"
@@ -37,6 +38,10 @@ const AddTodo = ({ categoryId }: { categoryId: string }) => {
               if (e.key === "Enter" && !e.shiftKey && "form" in e.target) {
                 e.preventDefault()
                 ;(e.target.form as HTMLFormElement).requestSubmit()
+              }
+
+              if (e.key === "Escape") {
+                setIsAdding(false)
               }
             }}
           />

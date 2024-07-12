@@ -53,7 +53,7 @@ const TodoColumn = ({
       </div>
 
       <div
-        className={`h-full w-full transition-colors ${
+        className={`w-full transition-colors ${
           active ? "bg-zinc-700/50" : "bg-zinc-700/0"
         }`}
       >

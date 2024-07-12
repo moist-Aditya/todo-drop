@@ -10,7 +10,7 @@ const TodoList = async () => {
   ])
 
   return (
-    <div className="flex gap-3 w-full h-full flex-1 p-12 overflow-scroll relative">
+    <div className="flex gap-3 w-full h-full flex-1 overflow-scroll relative">
       {categories.map((cat) => (
         <TodoColumn
           key={cat.id}
