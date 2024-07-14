@@ -5,7 +5,7 @@ import { DragEvent, useState } from "react"
 import TodoCard from "./TodoCard"
 import DropIndicator from "./DropIndicator"
 import AddTodo from "./AddTodo"
-import { moveTask } from "@/actions/actions"
+import { moveTask } from "@/actions/todoActions"
 import { toast } from "sonner"
 
 const TodoColumn = ({
@@ -42,7 +42,7 @@ const TodoColumn = ({
 
   return (
     <div
-      className="w-56 shrink-0"
+      className="w-56 shrink-0 flex flex-col"
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDragEnd}
@@ -53,7 +53,7 @@ const TodoColumn = ({
       </div>
 
       <div
-        className={`w-full transition-colors ${
+        className={`w-full transition-colors flex-1  ${
           active ? "bg-zinc-700/50" : "bg-zinc-700/0"
         }`}
       >

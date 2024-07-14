@@ -1,6 +1,6 @@
 "use client"
 
-import { addCategory } from "@/actions/actions"
+import { addCategory } from "@/actions/todoActions"
 import { useState } from "react"
 import { FiPlus } from "react-icons/fi"
 import { MdPlaylistAdd } from "react-icons/md"
@@ -48,9 +48,12 @@ const AddCategory = () => {
       ) : (
         <button
           onClick={() => setIsAdding(true)}
-          className="text-xl flex text-yellow-500 bg-zinc-950 border border-yellow-500 p-1 h-56 mt-10 rounded"
+          className="text-xl flex flex-col items-center text-yellow-500 bg-zinc-950 border border-yellow-500 p-1 h-56 mt-10 rounded relative"
         >
           <MdPlaylistAdd />
+          <span className="text-xs rotate-90 absolute text-nowrap bottom-[50%]">
+            Add category
+          </span>
         </button>
       )}
     </>

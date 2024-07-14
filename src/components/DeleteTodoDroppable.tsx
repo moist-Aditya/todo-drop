@@ -1,6 +1,6 @@
 "use client"
 
-import { deleteTask } from "@/actions/actions"
+import { deleteTask } from "@/actions/todoActions"
 import { DragEvent, useState } from "react"
 import { FaTrash } from "react-icons/fa"
 import { toast } from "sonner"

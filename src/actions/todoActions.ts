@@ -2,21 +2,56 @@
 
 import { revalidatePath } from "next/cache"
 import { prisma } from "../../prisma/client"
+import { auth } from "@/lib/auth"
 
 export const addTask = async (categoryId: string, formData: FormData) => {
+  const session = await auth()
+  if (!session || !session?.user.id) return { error: "Not Authorized." }
+
   const data = {
     content: formData.get("content") as string,
   }
 
+  const userId = session.user.id
+
   console.log(data)
 
   try {
-    await prisma.category.update({
-      where: { id: categoryId },
+    // add new todo and connect to category and user
+    await prisma.todo.create({
       data: {
-        Todo: {
+        content: data.content,
+        categoryId,
+        userId,
+      },
+    })
+  } catch (error: any) {
+    return { error: error?.message }
+  }
+
+  revalidatePath("/")
+}
+
+export const addCategory = async (formData: FormData) => {
+  const session = await auth()
+  if (!session || !session?.user.id) return { error: "Not Authorized." }
+
+  const data = {
+    name: formData.get("categoryName") as string,
+  }
+
+  const userId = session.user.id
+
+  try {
+    // add category to user
+    await prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        Category: {
           create: {
-            content: data.content,
+            name: data.name,
           },
         },
       },
@@ -28,25 +63,10 @@ export const addTask = async (categoryId: string, formData: FormData) => {
   revalidatePath("/")
 }
 
-export const addCategory = async (formData: FormData) => {
-  const data = {
-    name: formData.get("categoryName") as string,
-  }
-
-  try {
-    await prisma.category.create({
-      data: {
-        name: data.name,
-      },
-    })
-  } catch (error: any) {
-    return { error: error?.message }
-  }
-
-  revalidatePath("/")
-}
-
 export const deleteTask = async (taskId: string) => {
+  const session = await auth()
+  if (!session || !session?.user.id) return { error: "Not Authorized." }
+
   try {
     await prisma.todo.delete({
       where: {

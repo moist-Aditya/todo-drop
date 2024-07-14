@@ -1,6 +1,6 @@
 "use client"
 
-import { addTask } from "@/actions/actions"
+import { addTask } from "@/actions/todoActions"
 import { createRef, useState } from "react"
 import { FiPlus } from "react-icons/fi"
 import { toast } from "sonner"

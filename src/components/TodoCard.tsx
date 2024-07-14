@@ -1,6 +1,5 @@
 import { Todo } from "@prisma/client"
 import DropIndicator from "./DropIndicator"
-import { DragEvent } from "react"
 import { motion } from "framer-motion"
 
 const TodoCard = ({

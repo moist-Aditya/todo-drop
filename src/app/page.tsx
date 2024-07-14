@@ -1,14 +1,13 @@
-import AddCategory from "@/components/AddCategory"
-import TodoList from "@/components/TodoList"
+import Link from "next/link"
 
-export default function Home() {
+const Home = () => {
   return (
-    <main className="flex h-screen flex-col items-center">
-      <h1 className="text-5xl font-black mt-4">TodoDrop</h1>
-
-      <div className="mt-20 w-full h-full flex overflow-hidden flex-1">
-        <TodoList />
-      </div>
-    </main>
+    <div className="h-screen flex justify-center items-center">
+      <Link href={"/dashboard"} className="btn-primary">
+        Get Started
+      </Link>
+    </div>
   )
 }
+
+export default Home
