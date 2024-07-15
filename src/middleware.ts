@@ -1,14 +1,19 @@
 import { auth } from "@/lib/auth"
 
 export default auth((req) => {
-  const protectedRoutes = ["/dashboard"]
+  const protectedRoutes = ["/dashboard", "/admin-panel"]
 
   if (!req.auth && protectedRoutes.includes(req.nextUrl.pathname)) {
-    const newUrl = new URL("/login", req.nextUrl.origin)
-    return Response.redirect(newUrl)
+    const loginUrl = new URL("/login", req.nextUrl.origin)
+    loginUrl.searchParams.set("callbackUrl", req.nextUrl.pathname)
+
+    return Response.redirect(loginUrl)
   }
 
-  if (req.auth && req.nextUrl.pathname === "/login") {
+  if (
+    req.auth &&
+    (req.nextUrl.pathname === "/login" || req.nextUrl.pathname === "/register")
+  ) {
     const newUrl = new URL("/dashboard", req.nextUrl.origin)
     return Response.redirect(newUrl)
   }

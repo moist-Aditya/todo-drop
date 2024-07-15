@@ -63,11 +63,13 @@ export const registerUser = async (formData: FormData) => {
   redirect("/login")
 }
 
-export const loginUser = async (formData: FormData) => {
+export const loginUser = async (formData: FormData, callbackUrl?: string) => {
   const form = {
     username: formData.get("username"),
     password: formData.get("password"),
   }
+
+  const redirectUrl = callbackUrl ? callbackUrl : "/dashboard"
 
   try {
     await signIn("credentials", {
@@ -84,10 +86,12 @@ export const loginUser = async (formData: FormData) => {
       error: getErrorMessage(error),
     }
   }
-  redirect("/dashboard")
+  console.log("REDIRECT TO:", redirectUrl)
+
+  redirect(redirectUrl)
 }
 
 export const logoutUser = async () => {
   await signOut()
-  redirect("/")
+  // redirect("/login")
 }

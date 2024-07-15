@@ -3,14 +3,20 @@ import { signIn } from "@/lib/auth"
 import { redirect } from "next/navigation"
 import { toast } from "sonner"
 
-const Login = () => {
+const Login = ({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | undefined }
+}) => {
+  const callbackUrl = searchParams?.callbackUrl
+
   return (
     <div className="bg-zinc-700/20 border border-zinc-700 rounded p-4">
       <form
         action={async (formData) => {
           "use server"
 
-          const result = await loginUser(formData)
+          const result = await loginUser(formData, callbackUrl)
           if (result?.error) return
           else {
             // toast successfull

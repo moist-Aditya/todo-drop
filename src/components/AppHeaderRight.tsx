@@ -34,7 +34,7 @@ const AppHeaderRight = ({ user }: { user: User }) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <div className="bg-zinc-200/0 hover:bg-zinc-50/20 transition-colors text-zinc-50 p-1.5 rounded flex gap-4 items-center">
+        <div className="bg-zinc-200/0 hover:bg-zinc-50/20 transition-colors text-zinc-50 p-1.5 rounded flex gap-4 items-center cursor-pointer">
           <span className="uppercase text-sm text-zinc-50/50 font-semibold">
             Welcome, {user.username}
           </span>
@@ -47,7 +47,10 @@ const AppHeaderRight = ({ user }: { user: User }) => {
         {menuItems.map(
           (menuItem) =>
             (!menuItem.role || menuItem.role === user.role) && (
-              <DropdownMenuItem onClick={menuItem?.onClick}>
+              <DropdownMenuItem
+                key={menuItem.label}
+                onClick={menuItem?.onClick}
+              >
                 {menuItem.icon}
                 <span>{menuItem.label}</span>
               </DropdownMenuItem>
