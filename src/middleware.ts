@@ -1,7 +1,8 @@
 import { auth } from "@/lib/auth"
 
 export default auth((req) => {
-  const protectedRoutes = ["/dashboard", "/admin-panel"]
+  const adminRoutes = ["/admin-panel"]
+  const protectedRoutes = ["/dashboard", ...adminRoutes]
 
   if (!req.auth && protectedRoutes.includes(req.nextUrl.pathname)) {
     const loginUrl = new URL("/login", req.nextUrl.origin)
@@ -16,6 +17,14 @@ export default auth((req) => {
   ) {
     const newUrl = new URL("/dashboard", req.nextUrl.origin)
     return Response.redirect(newUrl)
+  }
+
+  if (
+    req.auth &&
+    req.auth.user.role !== "ADMIN" &&
+    adminRoutes.includes(req.nextUrl.pathname)
+  ) {
+    return Response.redirect(new URL("/dashboard", req.nextUrl.origin))
   }
 })
 
