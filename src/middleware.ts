@@ -21,9 +21,11 @@ export default auth((req) => {
 
   if (
     req.auth &&
-    req.auth.user.role !== "ADMIN" &&
-    adminRoutes.includes(req.nextUrl.pathname)
+    adminRoutes.includes(req.nextUrl.pathname) &&
+    req.auth.user.role !== "ADMIN"
   ) {
+    console.log("NOT AN ADMIN")
+
     return Response.redirect(new URL("/dashboard", req.nextUrl.origin))
   }
 })

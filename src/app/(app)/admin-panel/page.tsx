@@ -1,8 +1,11 @@
+import AdminPanel from "@/components/AdminPanel"
+import MainHeading from "@/components/MainHeading"
 import UnAuthorizedWarning from "@/components/UnAuthorizedWarning"
 import { auth } from "@/lib/auth"
-import React from "react"
+import { Loader2 } from "lucide-react"
+import React, { Suspense } from "react"
 
-const AdminPanel = async () => {
+const AdminPanelPage = async () => {
   const session = await auth()
   const role = session?.user.role
 
@@ -10,7 +13,14 @@ const AdminPanel = async () => {
     return <UnAuthorizedWarning />
   }
 
-  return <div>AdminPanel - If you see this, you are an admin!</div>
+  return (
+    <>
+      <MainHeading title="Admin Panel" />
+      <Suspense fallback={<Loader2 className="animate-spin mx-auto" />}>
+        <AdminPanel />
+      </Suspense>
+    </>
+  )
 }
 
-export default AdminPanel
+export default AdminPanelPage

@@ -1,5 +1,4 @@
 import { getUserCategories, getUserTodos } from "@/data-access/userTodosAccess"
-import { prisma } from "../../prisma/client"
 import AddCategory from "./AddCategory"
 import DeleteTodoDroppable from "./DeleteTodoDroppable"
 import TodoColumn from "./TodoColumn"

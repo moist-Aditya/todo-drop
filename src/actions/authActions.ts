@@ -92,6 +92,6 @@ export const loginUser = async (formData: FormData, callbackUrl?: string) => {
 }
 
 export const logoutUser = async () => {
-  await signOut()
+  await signOut({ redirectTo: "/login" })
   // redirect("/login")
 }
