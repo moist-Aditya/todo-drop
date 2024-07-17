@@ -54,6 +54,18 @@ export const registerUser = async (formData: FormData) => {
       },
     })
 
+    // Create Todo category by default
+    await prisma.user.update({
+      where: { id: newUser.id },
+      data: {
+        Category: {
+          create: {
+            name: "Todo",
+          },
+        },
+      },
+    })
+
     // TODO: Signin automatically
   } catch (error: any) {
     console.log("ERROR registerUser ACTION: ", error)
