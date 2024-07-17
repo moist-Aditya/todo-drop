@@ -77,7 +77,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         })
 
         if (!user) {
-          throw new Error("No user found with username")
+          throw new Error("Invalid Credentials.")
         }
 
         const isPasswordCorrect = await bcrypt.compare(password, user.password)
@@ -85,7 +85,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         if (isPasswordCorrect) {
           return user
         } else {
-          throw new Error("Incorrect password")
+          throw new Error("Invalid Credentials.")
         }
       },
     }),
