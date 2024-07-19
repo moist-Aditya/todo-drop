@@ -1,4 +1,4 @@
-import AdminPanel from "@/components/AdminPanel"
+import AdminPanel from "./AdminPanel"
 import MainHeading from "@/components/MainHeading"
 import UnAuthorizedWarning from "@/components/UnAuthorizedWarning"
 import { auth } from "@/lib/auth"

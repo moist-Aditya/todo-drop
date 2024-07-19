@@ -46,3 +46,22 @@ export const getTaskCount = async () => {
 
   return taskCount
 }
+
+export const getUsers = async () => {
+  const session = await auth()
+  if (!session || session.user.role !== "ADMIN") {
+    return null
+  }
+
+  const users = await prisma.user.findMany({
+    select: {
+      username: true,
+      role: true,
+      createdAt: true,
+      email: true,
+      id: true,
+    },
+  })
+
+  return users
+}
